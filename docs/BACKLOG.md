@@ -6,7 +6,7 @@
 
 ## Tag 1 — Übung 2: MVP ohne Datenbank
 
-### ⬜ Issue 1 — Liste mit Beispieldaten
+### ✅ Issue 1 — Liste mit Beispieldaten
 **Ziel:** Auf der Startseite sehen Studierende alle Gegenstände, die gerade ausleihbar sind – damit sie wissen, was es am Campus gibt.
 **Nicht im Umfang:** Suche, Filter, Detailseite, Datenbank (Beispieldaten aus `src/data/gegenstaende.ts`, Bilder aus `public/gegenstaende/`).
 **Akzeptanzkriterien:**
@@ -94,8 +94,48 @@
 
 **Fertig, wenn:** drei Vorschläge erzeugt, Rate Limit ausgelöst, Netzwerk-Tab ohne Key.
 
+## Ergänzungen aus dem Brainstorming (nach Issue 7)
+
+### ⬜ Issue 9 — Meine Angebote
+**Ziel:** Unter `/meine-angebote` sehen Studierende ihre eigenen Gegenstände und markieren sie als „gerade verliehen“ oder entfernen sie – damit die Liste aktuell bleibt.
+**Nicht im Umfang:** Bearbeiten von Titel, Beschreibung oder Preis, Bilder hochladen.
+**Akzeptanzkriterien:**
+- Gegeben ich habe 2 Gegenstände angeboten, dann sehe ich unter `/meine-angebote` genau diese 2 und keine von anderen.
+- Gegeben ich markiere einen Gegenstand als „gerade verliehen“, dann verschwindet er aus der Liste auf der Startseite und ist nach Reload noch weg; ich kann ihn wieder als „verfügbar“ markieren.
+- Gegeben ich entferne einen Gegenstand und bestätige die Rückfrage, dann ist er überall verschwunden; ohne Bestätigung bleibt er.
+- Gegeben ich bin nicht angemeldet und rufe `/meine-angebote` auf, dann werde ich zur Anmeldung geleitet.
+- Gegeben ein Gegenstand gehört einer anderen Person, dann kann ich ihn nicht verändern oder entfernen (Row Level Security, Tabelle `items`).
+
+**Fertig, wenn:** mit einem Testkonto zwei Gegenstände angeboten, einen als verliehen markiert (fehlt auf der Startseite), einen entfernt; ohne Login aufgerufen.
+
+### ⬜ Issue 10 — Kontakt nach der Anfrage
+**Ziel:** Besitzer*innen sehen, wer ihren Gegenstand angefragt hat, und antworten per E-Mail – damit die Übergabe geklärt werden kann.
+**Nicht im Umfang:** Annehmen oder ablehnen, Chat in der App, E-Mails automatisch versenden.
+**Akzeptanzkriterien:**
+- Gegeben jemand hat meinen Gegenstand angefragt, wenn ich dessen Detailseite öffne, dann sehe ich die E-Mail-Adresse der anfragenden Person mit einem Link „Per E-Mail antworten“.
+- Gegeben es gibt keine Anfragen, dann sehe ich den Hinweis „Noch keine Anfragen“.
+- Gegeben die Anfrage wird zurückgezogen, dann verschwindet die Person aus meiner Liste.
+- Gegeben ein Gegenstand gehört mir nicht, dann sehe ich dort nur den Zähler „Anfragen“, aber keine E-Mail-Adressen.
+
+**Fertig, wenn:** mit zwei Testkonten: Konto B fragt einen Gegenstand von Konto A an, A sieht B samt Link; B zieht zurück, A sieht B nicht mehr; B sieht bei A keine Adressen.
+
+### ⬜ Issue 11 — Teilen-Link
+**Ziel:** Ein Knopf auf der Detailseite kopiert den Link zum Gegenstand – damit man ihn in WhatsApp-Gruppen weiterschicken kann.
+**Nicht im Umfang:** Direktes Teilen in WhatsApp oder andere Apps, Vorschaubilder für Links.
+**Akzeptanzkriterien:**
+- Gegeben ich bin auf einer Detailseite, wenn ich auf „Link kopieren“ klicke, dann steht der Button kurz auf „Link kopiert ✓“ und die Adresse liegt in der Zwischenablage.
+- Gegeben ich öffne den kopierten Link in einem neuen Tab ohne Anmeldung, dann sehe ich denselben Gegenstand.
+- Gegeben ich öffne die Detailseite am Handy (375 px), dann ist der Button erreichbar und ragt nicht über den Rand.
+
+**Fertig, wenn:** Link kopiert und in einem privaten Fenster eingefügt; am Handy geprüft.
+
 ## Später / Ideen (nicht im MVP)
 - Anfrage annehmen oder ablehnen (Besitzer*in)
 - Kalender mit freien Tagen
 - Fotos hochladen
 - Kaution und Bewertungen
+- Suche nach Stichwort
+- Leih-Kreis am Campus (Dinge aus deiner Nähe zuerst)
+- Rückgabe-Erinnerung per E-Mail
+- „Zuletzt ausgeliehen“-Zähler pro Gegenstand
+- Wunschliste mit Benachrichtigung, wenn ein Gegenstand wieder frei ist
